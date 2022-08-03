@@ -1,0 +1,97 @@
+%% Kavya Vaidya
+% This is to fit fish data to exponential curves in two regions for
+% two-phase degradation analysis.
+% For log plot fitting look at tphase-analysis
+load('m12090.60.lacz.mat');
+clearvars -except fishSignal1 fishSignal2 fishSignal12 mRNALL mRNALL2 criticalTime speedcrit
+%%
+fishTime = (0:10:(size(fishSignal2,1)-1)*10)'; %fishTime (fishSig at pos 1 <=> time = 0
+fishSignal1 = mean(fishSignal12,2);
+fishSignal2 = mean(fishSignal2,2);
+%% 5' end
+[xData, yData1] = prepareCurveData( fishTime, fishSignal1 );
+
+% Set up fittype and options. - m1-signal1
+ft = fittype( 'exp1' );
+excludedPoints1 = (xData < 100) | (xData > 130);
+opts = fitoptions( 'Method', 'NonlinearLeastSquares' );
+opts.Display = 'Off';
+opts.StartPoint = [1 -0.1];
+opts.Exclude = excludedPoints1;
+
+% Fit model to data.
+fitresult1 = fit( xData, yData1, ft, opts );
+
+% Set up fittype and options. - m2
+ft = fittype( 'exp1' );
+excludedPoints2 = (xData < 200) | (xData > 700);
+opts = fitoptions( 'Method', 'NonlinearLeastSquares' );
+opts.Display = 'Off';
+opts.StartPoint = [1 -0.1];
+opts.Exclude = excludedPoints2;
+
+% Fit model to data.
+fitresult2 = fit( xData, yData1, ft, opts );
+
+m5_1 = -(1/(fitresult1.b));
+m5_2 = -(1/(fitresult2.b));
+
+%% 3' end
+[xData, yData2] = prepareCurveData( fishTime, fishSignal2 );
+
+
+% Set up fittype and options. - m1-signal2
+ft = fittype( 'exp1' );
+excludedPoints3 = (xData < 160) | (xData > 190);
+opts = fitoptions( 'Method', 'NonlinearLeastSquares' );
+opts.Display = 'Off';
+opts.StartPoint = [1 -0.1];
+opts.Exclude = excludedPoints3;
+
+% Fit model to data.
+fitresult3 = fit( xData, yData2, ft, opts );
+
+% Set up fittype and options. - m2
+ft = fittype( 'exp1' );
+excludedPoints4 = (xData < 250) | (xData > 700);
+opts = fitoptions( 'Method', 'NonlinearLeastSquares' );
+opts.Display = 'Off';
+opts.StartPoint = [1 -0.1];
+opts.Exclude = excludedPoints4;
+
+% Fit model to data.
+fitresult4 = fit( xData, yData2, ft, opts );
+
+m3_1 = -(1/(fitresult3.b));
+m3_2 = -(1/(fitresult4.b));
+
+%%
+% For m1, m2 in 5' and 3' data
+figure( 'Name', 'Exponential fit for FISH data' );
+h1 = plot( fitresult1,'y', xData, yData1,'oy', excludedPoints1, 'xr' );
+hold on;
+h2 = plot( fitresult2,'m', xData, yData1,'om', excludedPoints2, 'xr' );
+h3 = plot( fitresult3,'b', xData, yData2,'ob', excludedPoints3, 'xg' );
+h4 = plot( fitresult4,'c', xData, yData2,'oc', excludedPoints4, 'xg' );
+legend([h1(2) h3(2) h1(3) h2(3) h3(3) h4(3)], "5' signal", "3' signal", sprintf('Fit 5 m_1 = %g', m5_1), sprintf('Fit 5 m_2 = %g', m5_2), sprintf('Fit 3 m_1 = %g', m3_1) , sprintf('Fit 3 m_2 = %g', m3_2), 'Location', 'NorthEast', 'Interpreter', 'none' );
+%legend('Fit FISHsignal(m)', 'Excluded FISHsignal', sprintf('Fit m = %g', m), 'Fit FISHsignal(m_1)', 'Excluded FISHsignal', sprintf('Fit m_1 = %g', m1), 'Location', 'NorthEast', 'Interpreter', 'none' );
+% Label axes
+xlabel( 'fishTime', 'Interpreter', 'none' );
+ylabel( 'fishSignal', 'Interpreter', 'none' );
+title(sprintf("Fitting for simulation inputs: mu1 = %g, mu2 = %g", mRNALL, mRNALL2));
+axis([0 800 0 3]);
+hold off;
+%%
+% For 5' m1, m2 fitting
+figure( 'Name', 'Exponential fit for FISH data' );
+h1 = plot( fitresult1,'c', xData, yData1,'oc', excludedPoints1, 'xr' );
+hold on;
+h2 = plot( fitresult2,'y', xData, yData1,'oy', excludedPoints2, 'xr' );
+legend([h1(2) h1(3) h2(3)], "5' signal", sprintf('Fit result m_1 = %g', m5_1), sprintf('Fit result m_2 = %g', m5_2), 'Location', 'NorthEast', 'Interpreter', 'none' );
+%legend('Fit FISHsignal(m)', 'Excluded FISHsignal', sprintf('Fit m = %g', m), 'Fit FISHsignal(m_1)', 'Excluded FISHsignal', sprintf('Fit m_1 = %g', m1), 'Location', 'NorthEast', 'Interpreter', 'none' );
+% Label axes
+xlabel( 'fishTime', 'Interpreter', 'none' );
+ylabel( "5' fishSignal", 'Interpreter', 'none' );
+title(sprintf("Fitting for simulation inputs: mu1 = %g, mu2 = %g", mRNALL, mRNALL2));
+axis([0 800 0 4.5]);
+hold off;
