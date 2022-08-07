@@ -1,6 +1,5 @@
 import Model_Protein_Production_OOP as mod
 from Model_Protein_Production_OOP import Environment
-from Model_Protein_Production_OOP import printProgressBar as printProgressBar
 import numpy as np
 import matplotlib.pyplot as plt
 
