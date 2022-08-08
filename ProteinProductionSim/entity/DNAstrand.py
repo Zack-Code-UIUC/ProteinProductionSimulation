@@ -1,4 +1,8 @@
 """
+============
+dna_strand.py
+============
+
 
 """
 
@@ -7,5 +11,5 @@ from ..interface import Entity
 
 class DNAStrand(Entity):
     def __init__(self):
-        super()
+        Entity.__init__(self)
         pass

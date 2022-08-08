@@ -105,6 +105,12 @@ class DataContainer:
     def log(self):
         pass
 
+    def get(self):
+        pass
+
+    def plot(self):
+        pass
+
 
 class Environment:
     """
