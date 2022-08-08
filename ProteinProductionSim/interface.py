@@ -94,9 +94,9 @@ class DataContainer:
     """
     The DataContainer interface is used to log and store data.
     """
-    parent = None
 
     def __init__(self):
+        self.parent = None
         pass
 
     def _init(self):
@@ -116,9 +116,9 @@ class Environment:
     """
     The Environment interface is used to represent the simulated environment and contains all the entities instance.
     """
-    parent = None
 
     def __init__(self):
+        self.parent = None
         pass
 
     def step(self):
@@ -135,9 +135,9 @@ class Entity:
     """
     The Entity interface is used to represent the simulated entities.
     """
-    parent = None
 
     def __init__(self):
+        self.parent = None
         pass
 
     def _init(self):

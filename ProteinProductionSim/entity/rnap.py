@@ -1,4 +1,66 @@
-# RNAP Class
+"""
+================================
+rnap.py
+================================
+
+This file represents the RNA Polymerase, abbreviated as RNAP. The RNAP is attached to
+the DNA strand to conduct the transcription of messanger RNA.
+
+
+"""
+
+
+from ..interface import Entity
+
+
+class RNAP(Entity):
+    """Represent the RNA polymerase.
+
+    Attributes
+    ----------
+    parent : DNAstrand
+        the reference to the parent DNAstrand
+    initial_t : int
+        the initial time when this RNAP is attached  or loaded to the DNA strand
+    position : float
+
+
+    Methods
+    -------
+
+
+
+    """
+    def __init__(self, dna, initial_t, pause_profile="flat", degradation_profile = "exponential", **kwargs):
+        """
+        Initialize the RNAP instance
+
+        Parameter
+        ---------
+        dna : DNAstrand instance
+            the reference of the parent DNA strand
+        initial_t : float
+            the initial time when this RNAP is attached  or loaded to the DNA strand.
+        pause_profile : str, optional
+            the site-specific pausing pattern that is used (default is 'flat')
+        degradation_profile : str, optional
+            the degradation time or loading interval pattern that is used
+        **kwargs: Any, optional
+            the argument that is passed to the mRNA instances
+        """
+        super.__init__(self)
+        self.parent = dna
+        self.initial_t = initial_t
+        self.position = 0
+        self.initiated = False
+
+
+    def step(self):
+        pass
+
+
+
+
 
 class RNAP:
     def __init__(self, t, pause_profile="flat", mRNA_degradation=True, DNA=None):
