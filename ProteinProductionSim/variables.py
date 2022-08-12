@@ -52,8 +52,6 @@ v_0 = 30.5
 tau_c = 11
 tau_0 = 0.386
 
-# Switches
-protein_production_off = False
 
 # Scaling
 multiplier = int(1/dt)

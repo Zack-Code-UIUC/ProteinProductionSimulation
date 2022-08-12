@@ -28,7 +28,8 @@ class DNAStrand(Entity):
     """
     def __init__(self, environment, rnap_loading_rate, include_supercoiling=True, include_busty_promoter=False,
                  rnap_loading_pattern="stochastic", promoter_shut_off_time=90, pause_profile="flat",
-                 ribo_loading_profile="stochastic", degradation_profile="exponential"):
+                 ribo_loading_profile="stochastic", degradation_profile="exponential",
+                 protein_production_off: bool = False):
         super().__init__(environment)
         self.length = length
         self.rnap_loading_rate = rnap_loading_rate
@@ -40,6 +41,7 @@ class DNAStrand(Entity):
         self.pause_profile = pause_profile
         self.ribo_loading_pattern = ribo_loading_profile
         self.degradation_profile = degradation_profile
+        self.protein_production_off = protein_production_off
 
         # variables related to the status of its children mRNAs.
         self.loaded = 0  # number of RNAPs that have been loaded.
@@ -213,7 +215,7 @@ class DNAStrand(Entity):
         if to_load:
             self.RNAP_LIST.append(
                 RNAP(self, time_index, pause_profile=self.pause_profile, ribo_loading_profile=self.ribo_loading_pattern,
-                     degradation_profile=self.degradation_profile))
+                     degradation_profile=self.degradation_profile, protein_production_off=self.protein_production_off))
             self.loaded = len(self.RNAP_LIST)
             if self.include_supercoiling:
                 self.T_open = time_index + scaling(t_on)

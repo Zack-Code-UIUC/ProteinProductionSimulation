@@ -12,7 +12,7 @@ from ..interface import Entity
 from ..helper.random_generator import binary_generator, exponential_generator, stepwise_exponential_generator
 from ..helper.loading_list import LoadingList
 from datacontainer.ribo_container import RIBOContainer
-from ..variables import length, kRiboLoading, ribo_loading_interval, protein_production_off, m1, m2, t_crit, \
+from ..variables import length, kRiboLoading, ribo_loading_interval, m1, m2, t_crit, \
     initiation_nt, scaling, dt
 
 
@@ -63,7 +63,7 @@ class RNAP(Entity):
     pauseProb = 0.8
 
     def __init__(self, dna: Entity, initial_t, pause_profile: str = "flat", ribo_loading_profile: str = "stochastic",
-                 degradation_profile: str = "exponential"):
+                 degradation_profile: str = "exponential", protein_production_off: bool = False):
         super().__init__(dna)
         self.parent = dna  # this store the reference to its mother DNA, so that callback method can be used.
         self.initial_t = initial_t  # means the initial time when the RNAP attached.
