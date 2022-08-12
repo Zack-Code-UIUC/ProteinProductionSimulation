@@ -14,13 +14,13 @@ How each interface is structured?
 ---------------------------------
 
 
-_init()
+init()
 ^^^^^^^
 
-Well, all class must have __init__ method, for sure. In addition, each interface also must have _init method.
+Well, all class must have __init__ method, for sure. In addition, each interface also must have init method.
 
-The _init method is necessary, because the user might modify the Controller instance after the initiation of the
-instance. Therefore, each class must initiate its relevant quantities in its _init method to counter any random change
+The init method is necessary, because the user might modify the Controller instance after the initiation of the
+instance. Therefore, each class must initiate its relevant quantities in its init method to counter any random change
 to its quantities by the user.
 
 step()
@@ -77,7 +77,7 @@ class Controller:
     def __init__(self):
         pass
 
-    def _init(self):
+    def init(self):
         pass
 
     def step(self):
@@ -86,7 +86,7 @@ class Controller:
     def start(self):
         pass
 
-    def _call_back(self):
+    def call_back(self, option, data):
         pass
 
 
@@ -95,11 +95,11 @@ class DataContainer:
     The DataContainer interface is used to log and store data.
     """
 
-    def __init__(self):
+    def __init__(self, parent):
         self.parent = None
         pass
 
-    def _init(self):
+    def init(self):
         pass
 
     def log(self):
@@ -124,10 +124,10 @@ class Environment:
     def step(self):
         pass
 
-    def _init(self):
+    def init(self):
         pass
 
-    def _call_back(self):
+    def call_back(self, option, data):
         pass
 
 
@@ -136,15 +136,15 @@ class Entity:
     The Entity interface is used to represent the simulated entities.
     """
 
-    def __init__(self):
-        self.parent = None
+    def __init__(self, parent, **kwargs):
+        self.parent = parent
         pass
 
-    def _init(self):
+    def init(self):
         pass
 
-    def step(self):
+    def step(self, **kwargs):
         pass
 
-    def _call_back(self):
+    def call_back(self, option, data):
         pass
