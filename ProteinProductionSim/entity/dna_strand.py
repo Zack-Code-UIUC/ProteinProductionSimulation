@@ -98,6 +98,8 @@ class DNAStrand(Entity):
         self.stepping = None
 
     def init(self):
+        for rnap in self.RNAP_LIST:
+            rnap.init()
         pass
 
     def step(self, time_index):

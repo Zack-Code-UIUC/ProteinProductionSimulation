@@ -117,11 +117,11 @@ class Environment:
     The Environment interface is used to represent the simulated environment and contains all the entities instance.
     """
 
-    def __init__(self):
-        self.parent = None
+    def __init__(self, parent):
+        self.parent = parent
         pass
 
-    def step(self):
+    def step(self, **kwargs):
         pass
 
     def init(self):
