@@ -17,7 +17,7 @@ promoter list is different from the actual "real" promoter list, as that will be
 other DataContainer.
 """
 
-from ..interface import DataContainer
+from interface import DataContainer
 from .random_generator import exponential_generator
 
 # Helper functions for the helper class
@@ -213,7 +213,6 @@ class LoadingList(DataContainer):
 
         self.length = len(self._arr)
         self.arr = [int(self._arr[i]) for i in range(self.length)]
-        print(self.arr)
         self.length = len(self.arr)
         self._remove_duplicate()
         self.dumped = False
@@ -264,7 +263,7 @@ class LoadingList(DataContainer):
         self.arr = []
 
     def if_can_load(self, time_index, base_time=0):
-        if time_index >= self.get_current() + base_time:
+        if not self.if_empty() and time_index == self.get_current() + base_time:
             self.increment()
             return True
         else:

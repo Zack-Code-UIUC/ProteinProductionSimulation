@@ -80,9 +80,6 @@ class Controller:
     def init(self):
         pass
 
-    def step(self):
-        pass
-
     def start(self):
         pass
 
@@ -95,20 +92,20 @@ class DataContainer:
     The DataContainer interface is used to log and store data.
     """
 
-    def __init__(self, parent):
-        self.parent = None
+    def __init__(self, parent, **kwargs):
+        self.parent = parent
         pass
 
-    def init(self):
+    def init(self, **kwargs):
         pass
 
-    def log(self):
+    def log(self, **kwargs):
         pass
 
-    def get(self):
+    def get(self, **kwargs):
         pass
 
-    def plot(self):
+    def plot(self, **kwargs):
         pass
 
 
@@ -146,5 +143,5 @@ class Entity:
     def step(self, **kwargs):
         pass
 
-    def call_back(self, option, data):
+    def call_back(self, option, data=None):
         pass

@@ -8,11 +8,11 @@ the DNA strand to conduct the transcription of messanger RNA.
 
 
 """
-from ..interface import Entity
-from ..helper.random_generator import binary_generator, exponential_generator, stepwise_exponential_generator
-from ..helper.loading_list import LoadingList
+from interface import Entity
+from helper.random_generator import binary_generator, exponential_generator, stepwise_exponential_generator
+from helper.loading_list import LoadingList
 from datacontainer.ribo_container import RIBOContainer
-from ..variables import length, kRiboLoading, ribo_loading_interval, m1, m2, t_crit, \
+from variables import length, kRiboLoading, ribo_loading_interval, m1, m2, t_crit, \
     initiation_nt, scaling, dt
 
 
@@ -28,7 +28,7 @@ class RNAP(Entity):
     pause_profile : str, optional
         the site-specific pausing pattern that is used (default is 'flat')
     ribo_loading_profile : str, optional
-        this loading pattern for the ribosomes (default is "stochastic")
+        this is the loading pattern for the ribosomes (default is "stochastic")
     degradation_profile : str, optional
         the degradation time or loading interval pattern that is used (default is "exponential")
 
@@ -148,7 +148,7 @@ class RNAP(Entity):
         #         use callback method of the parent DNA to increment the detached amount.
         if self.attached and (self.position >= length):
             self.attached = False
-            self.position = length + 1000
+            # self.position = length
             self.parent.call_back(option="attached", data=-1)
             self.parent.call_back(option="detached")
 
@@ -190,7 +190,7 @@ class RNAP(Entity):
         # return protein production
         return prot
 
-    def call_back(self, option, data):
+    def call_back(self, option, data=0):
         """
         This call_back() method is empty and does not perform any task.
         """
